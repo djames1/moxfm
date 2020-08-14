@@ -5,7 +5,6 @@
  * not the System V one.
  */
 
-
 /* The following is copied directly from <X11/Xos.h> */
 
 #ifndef X_NOT_STDC_ENV
@@ -31,15 +30,15 @@
 
 #endif /* X_NOT_STDC_ENV */
 
-#define NSUBEXP  10
+#define NSUBEXP 10
 typedef struct regexp {
-	char *startp[NSUBEXP];
-	char *endp[NSUBEXP];
-	char regstart;		/* Internal use only. */
-	char reganch;		/* Internal use only. */
-	char *regmust;		/* Internal use only. */
-	int regmlen;		/* Internal use only. */
-	char program[1];	/* Unwarranted chumminess with compiler. */
+  char *startp[NSUBEXP];
+  char *endp[NSUBEXP];
+  char regstart;   /* Internal use only. */
+  char reganch;    /* Internal use only. */
+  char *regmust;   /* Internal use only. */
+  int regmlen;     /* Internal use only. */
+  char program[1]; /* Unwarranted chumminess with compiler. */
 } regexp;
 
 extern regexp *regcomp();

@@ -7,7 +7,7 @@
 
 /*-----------------------------------------------------------------------------
   Common.h
-  
+
   (c) Simon Marlow 1990-1993
   (c) Albert Graef 1994
   (c) Oliver Mai 1995, 1996
@@ -32,18 +32,18 @@
 #pragma alloca
 #else
 #include <alloca.h>
-#endif	/* __NetBSD__ */
-#endif	/* hpux */
-#endif	/* _AIX */
+#endif /* __NetBSD__ */
+#endif /* hpux */
+#endif /* _AIX */
 
-#include <stdio.h>
-#include <sys/types.h> /* just in case */
-#include <sys/stat.h>
-#include <dirent.h>
-#include <sys/param.h>
-#include <unistd.h>
-#include <Xm/Xm.h>
 #include <X11/xpm.h>
+#include <Xm/Xm.h>
+#include <dirent.h>
+#include <stdio.h>
+#include <sys/param.h>
+#include <sys/stat.h>
+#include <sys/types.h> /* just in case */
+#include <unistd.h>
 
 #ifdef DMALLOC
 #include <dmalloc.h>
@@ -61,7 +61,7 @@
 #endif
 #define XtFree free
 
-#endif   /* DMALLOC */
+#endif /* DMALLOC */
 
 /* some systems define SVR4 but not SYSV */
 #ifdef SVR4
@@ -76,7 +76,7 @@
 #endif
 
 #ifdef SYSV
-#define getwd(s) getcwd(s,MAXPATHLEN)
+#define getwd(s) getcwd(s, MAXPATHLEN)
 #endif
 
 /* ULTRIX apparently doesn't define these */
@@ -141,12 +141,12 @@ void doView(char *directory, char *fname);
 
 #define END_BM 19
 
-#define freePixmap(icon)  XtAppAddWorkProc(app_context, (XtWorkProc) freePixmapProc, (XtPointer) icon)
+#define freePixmap(icon)                                                       \
+  XtAppAddWorkProc(app_context, (XtWorkProc)freePixmapProc, (XtPointer)icon)
 
-typedef struct
-{
-    Pixmap bm, mask;
-    Dimension width, height;
+typedef struct {
+  Pixmap bm, mask;
+  Dimension width, height;
 } IconRec;
 
 extern Cursor cur;
@@ -164,18 +164,21 @@ Boolean freePixmapProc(Pixmap icon_bm);
 #define NO 2
 #define ALL 3
 
-typedef struct
-{
-    String label;
-    String *value;
+typedef struct {
+  String label;
+  String *value;
 } TextFieldRec, *TextFieldList;
 
-void confirm(Widget shell, String question, void (*answerHandlerCB)(XtPointer, int), XtPointer client_data);
-void ask(Widget shell, String question, void (*answerHandlerCB)(XtPointer, int), XtPointer client_data);
+void confirm(Widget shell, String question,
+             void (*answerHandlerCB)(XtPointer, int), XtPointer client_data);
+void ask(Widget shell, String question, void (*answerHandlerCB)(XtPointer, int),
+         XtPointer client_data);
 void saveDialog(Widget shell, XtPointer client_data);
 void lastSaveDialog(Widget shell);
 void exitDialog(Widget shell);
-void textFieldDialog(Widget shell, TextFieldList fields, void (*callback)(XtPointer, int), XtPointer callback_data, Pixmap icon);
+void textFieldDialog(Widget shell, TextFieldList fields,
+                     void (*callback)(XtPointer, int), XtPointer callback_data,
+                     Pixmap icon);
 void closeFileCB(Widget w, XtPointer client_data, XtPointer call_data);
 
 /*--FmErrors-----------------------------------------------------------------*/
@@ -227,8 +230,10 @@ typedef enum { SortByName, SortBySize, SortByMTime } SortType;
 typedef enum { /*Tree,*/ Icons, Text } DisplayType;
 typedef enum { Up, Down, Left, Right } Direction;
 
-typedef void FmCallbackProc(Widget w, XtPointer client_data, XtPointer call_data);
-typedef void FmActionProc(Widget w, XEvent *event, String *params, Cardinal *num_params);
+typedef void FmCallbackProc(Widget w, XtPointer client_data,
+                            XtPointer call_data);
+typedef void FmActionProc(Widget w, XEvent *event, String *params,
+                          Cardinal *num_params);
 
 /*--FmDragDrop-------------------------------------------------------------------*/
 
@@ -238,23 +243,34 @@ typedef enum { FileName, RelativePath, AbsolutePath } NamePolicyType;
 
 typedef struct {
   Boolean appmgr, filemgr, ignore_startup, version;
-  String init_app_geometry, init_file_geometry, app_geometry, file_geometry, icon_pos;
-  XmFontList icon_font, button_font, menu_font, label_font, status_font, bold_font, cell_font, tty_font, filename_font;
+  String init_app_geometry, init_file_geometry, app_geometry, file_geometry,
+      icon_pos;
+  XmFontList icon_font, button_font, menu_font, label_font, status_font,
+      bold_font, cell_font, tty_font, filename_font;
   int app_icon_width, app_icon_height, file_icon_width, file_icon_height,
-    tree_icon_width, tree_icon_height;
-  String app_mainfile_r, cfg_file_r, mon_file_r, dev_file_r, appcfg_path_r, start_dir_r, startup_file_r, obj_dir_r, usrobj_file_r, dticon_file_r, applbox_icon_r;
+      tree_icon_width, tree_icon_height;
+  String app_mainfile_r, cfg_file_r, mon_file_r, dev_file_r, appcfg_path_r,
+      start_dir_r, startup_file_r, obj_dir_r, usrobj_file_r, dticon_file_r,
+      applbox_icon_r;
   String bitmap_path_r, pixmap_path_r;
 #ifdef MAGIC_HEADERS
   String magic_file_r, nomgc_cfg_file_r;
 #endif
-  Boolean confirm_deletes, confirm_delete_folder, confirm_moves, confirm_copies, confirm_links, confirm_overwrite, confirm_quit;
+  Boolean confirm_deletes, confirm_delete_folder, confirm_moves, confirm_copies,
+      confirm_links, confirm_overwrite, confirm_quit;
   Boolean echo_actions;
   SortType default_sort_type;
   DisplayType initial_display_type;
   NamePolicyType passed_name_policy;
   Direction icon_align;
-  Boolean start_from_xterm, keep_xterm;  Boolean show_hidden, dirs_first, show_owner, show_perms, show_date, show_length, newwin_on_dirpopup, override_redirect;
-  char cfg_file[MAXPATHLEN], mon_file[MAXPATHLEN], app_mainfile[MAXPATHLEN], dev_file[MAXPATHLEN], dticon_file[MAXPATHLEN], appcfg_path[MAXPATHLEN], start_dir[MAXPATHLEN], obj_dir[MAXPATHLEN], usrobj_file[MAXPATHLEN], startup_file[MAXPATHLEN], bitmap_path[MAXPATHLEN], pixmap_path[MAXPATHLEN], applbox_icon[MAXPATHLEN];
+  Boolean start_from_xterm, keep_xterm;
+  Boolean show_hidden, dirs_first, show_owner, show_perms, show_date,
+      show_length, newwin_on_dirpopup, override_redirect;
+  char cfg_file[MAXPATHLEN], mon_file[MAXPATHLEN], app_mainfile[MAXPATHLEN],
+      dev_file[MAXPATHLEN], dticon_file[MAXPATHLEN], appcfg_path[MAXPATHLEN],
+      start_dir[MAXPATHLEN], obj_dir[MAXPATHLEN], usrobj_file[MAXPATHLEN],
+      startup_file[MAXPATHLEN], bitmap_path[MAXPATHLEN],
+      pixmap_path[MAXPATHLEN], applbox_icon[MAXPATHLEN];
 #ifdef MAGIC_HEADERS
   char magic_file[MAXPATHLEN], nomgc_cfg_file[MAXPATHLEN];
 #endif
@@ -262,25 +278,24 @@ typedef struct {
       save_on_exit, suppress_warnings;
   int double_click_time, update_interval;
   String default_editor, default_viewer, xterm, sh_list;
-  Pixel label_color, select_color, drop_color, filename_color, linkname_color, textdir_color, dticon_color;
+  Pixel label_color, select_color, drop_color, filename_color, linkname_color,
+      textdir_color, dticon_color;
 } Resources;
 
-typedef struct
-{
-    unsigned int rootWidth, rootHeight;
-    Dimension appXPos, appYPos, fileXPos, fileYPos;
-    int appWidth, appHeight, fileWidth, fileHeight;
-    Pixel background;
+typedef struct {
+  unsigned int rootWidth, rootHeight;
+  Dimension appXPos, appYPos, fileXPos, fileYPos;
+  int appWidth, appHeight, fileWidth, fileHeight;
+  Pixel background;
 } XPropRec;
 
-typedef struct
-{
-    Atom appl;
-    Atom file;
-    Atom filelist;
-    Atom string;
-    Atom delete;
-    Atom drop;
+typedef struct {
+  Atom appl;
+  Atom file;
+  Atom filelist;
+  Atom string;
+  Atom delete;
+  Atom drop;
 } AtomRec;
 
 extern char *progname;
@@ -304,23 +319,21 @@ void mountTableCb(Widget w, XtPointer client_data, XtPointer call_data);
 
 /*--FmMount---------------------------------------------------------------------*/
 
-typedef struct
-{
-    String label, special, def_mpoint, mpoint;
-    String mount_act, umount_act;
-    Boolean slow_dev, mounted, manmounted, cp_req;
-    int n_req;
-    Widget state, button;
-    Boolean sensitive;
+typedef struct {
+  String label, special, def_mpoint, mpoint;
+  String mount_act, umount_act;
+  Boolean slow_dev, mounted, manmounted, cp_req;
+  int n_req;
+  Widget state, button;
+  Boolean sensitive;
 } DeviceRec;
 
-typedef struct
-{
-    int n_dev;
-    DeviceRec *devices;
-    Widget dialog;
-    int x, y;
-    Boolean iconic, show, slow_dev;
+typedef struct {
+  int n_dev;
+  DeviceRec *devices;
+  Widget dialog;
+  int x, y;
+  Boolean iconic, show, slow_dev;
 } MountRec;
 
 extern MountRec mntable;
@@ -328,20 +341,20 @@ extern MountRec mntable;
 /*--FmMenus------------------------------------------------------------------*/
 
 /* structures containing information required to set up a menu */
-typedef struct _MenuItemRec
-{
-    char *label;
-    WidgetClass *class;
-    char mnemonic;
-    char *accelerator;
-    char *accel_text;
-    void (*callback)(Widget, XtPointer, XtPointer);
-    XtPointer callback_data;
-    struct _MenuItemRec *subitems;
-    Widget object;
+typedef struct _MenuItemRec {
+  char *label;
+  WidgetClass *class;
+  char mnemonic;
+  char *accelerator;
+  char *accel_text;
+  void (*callback)(Widget, XtPointer, XtPointer);
+  XtPointer callback_data;
+  struct _MenuItemRec *subitems;
+  Widget object;
 } MenuItemRec, *MenuItemList;
 
-Widget BuildMenu(Widget parent, int type, char *title, char mnemonic, Boolean tear_off, MenuItemList items);
+Widget BuildMenu(Widget parent, int type, char *title, char mnemonic,
+                 Boolean tear_off, MenuItemList items);
 
 /* structures containing information required to set up a button */
 typedef struct {
@@ -349,7 +362,6 @@ typedef struct {
   String button_label;
   FmCallbackProc *callback;
 } ButtonRec, *ButtonList;
-
 
 /* structure for creating a popup questionaire */
 typedef struct {
@@ -380,17 +392,17 @@ int create(char *path, mode_t mode);
 void *memmove(void *s1, const void *s2, size_t n);
 #endif
 
-typedef struct
-{
-    Dimension x, y, width, height;
-    Boolean iconic;
+typedef struct {
+  Dimension x, y, width, height;
+  Boolean iconic;
 } GeomRec;
 
 int writeGeometry(Widget shell, Boolean iconic, FILE *fout);
 int readGeometry(GeomRec *geom, FILE *fin);
 int saveWindows(void);
 void saveStartupCb(Widget w, XtPointer client_data, XtPointer call_data);
-void performAction(Widget shell, Pixmap icon_bm, String action, String directory, int n_args, String *arguments);
+void performAction(Widget shell, Pixmap icon_bm, String action,
+                   String directory, int n_args, String *arguments);
 Boolean lastWindow(void);
 Widget getAnyShell(void);
 int percent(long part, long whole);
@@ -404,6 +416,6 @@ void doMonitor(void);
 
 /* Horrible kludge to avoid warnings, as XtFree is designed to take a (char *)*/
 #define XTFREE(p) XtFree((void *)(p))
-#define XTREALLOC(p,n) XtRealloc((void *)(p),(n))
+#define XTREALLOC(p, n) XtRealloc((void *)(p), (n))
 
 #endif
