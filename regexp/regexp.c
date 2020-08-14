@@ -28,6 +28,7 @@
  * precedence is structured in regular expressions.  Serious changes in
  * regular-expression syntax might require a total rethink.
  */
+#include <stdlib.h>
 #include <stdio.h>
 #include "regexp.h"
 #include "regmagic.h"

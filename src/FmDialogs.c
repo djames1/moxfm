@@ -6,6 +6,7 @@
   functions for dialog windows                                                   
 -----------------------------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <errno.h>
 #include <X11/Intrinsic.h>
 #include <Xm/Xm.h>
