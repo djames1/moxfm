@@ -1,3 +1,11 @@
+# Fork of MoxFM
+I forked this to get it compiling better on modern compilers as well
+as to fix some bugs. As I make changes I'll add them here.
+
+Below is the original readme.
+
+---
+
 NOTE: Since Oliver Mai's homepage seems to be gone, I decided to
 make this package available on the xfm website. Bob Woodside donated
 the moxfm-1.0 sources and contributed some patches, and I gave moxfm
